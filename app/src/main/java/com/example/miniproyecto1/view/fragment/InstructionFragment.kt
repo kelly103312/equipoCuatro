@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.miniproyecto1.R
 import com.example.miniproyecto1.databinding.FragmentInstructionBinding
 
@@ -40,6 +41,10 @@ class InstructionFragment : Fragment() {
         videoView.setOnPreparedListener { mediaPlayer ->
             mediaPlayer.isLooping = true // Opcional: hacer que el video se repita
             videoView.start()
+        }
+
+        binding.toolbar.backButton.setOnClickListener{
+            findNavController().navigate(R.id.homeFragment)
         }
     }
 }

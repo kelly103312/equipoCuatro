@@ -3,9 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/instructionFragment">
+    app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/instructionFragment"
         android:name="com.example.miniproyecto1.view.fragment.InstructionFragment"
         android:label="InstructionFragment" />
+    <fragment
+        android:id="@+id/challengeFragment"
+        android:name="com.example.miniproyecto1.view.fragment.challengeFragment"
+        android:label="challengeFragment" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.miniproyecto1.view.fragment.homeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_instructionFragment"
+            app:destination="@id/instructionFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_challengeFragment"
+            app:destination="@id/challengeFragment" />
+    </fragment>
 </navigation>

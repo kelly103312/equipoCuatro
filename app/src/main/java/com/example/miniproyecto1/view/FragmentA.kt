@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.miniproyecto1.R
 import com.example.miniproyecto1.databinding.FragmentABinding
+import android.content.Intent
+import androidx.core.content.ContextCompat
 
 
 class FragmentA : Fragment() {
@@ -28,6 +30,7 @@ class FragmentA : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         navigationFragmentB()
         setupAudioToggle()
+        shareFunction()
     }
 
     private fun navigationFragmentB(){
@@ -63,5 +66,19 @@ class FragmentA : Fragment() {
 
     }
 
+    private fun shareFunction() {
+        binding.iconShare.setOnClickListener {
+            val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(Intent.EXTRA_SUBJECT, "App pico botella")
+                putExtra(
+                    Intent.EXTRA_TEXT,
+                    "App pico botella - Solo los valientes lo juegan !!\nDescarga la app aquí: https://play.google.com/store/apps/details?id=com.nequi.MobileApp&hl=es_419&gl=es"
+                )
+            }
+
+            startActivity(Intent.createChooser(shareIntent, "Compartir App Pico Botella"))
+        }
+    }
 
 }

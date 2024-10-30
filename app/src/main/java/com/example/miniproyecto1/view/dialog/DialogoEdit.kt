@@ -1,20 +1,21 @@
 package com.example.miniproyecto1.view.dialog
-
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import com.example.miniproyecto1.R
+import com.example.miniproyecto1.model.Challenge
 import com.example.miniproyecto1.view.fragment.ChallengeFragment
 
-class DialogoAddChallegent {
+class DialogoEdit {
     interface DialogListener {
         fun onInputReceived(input: String)
     }
     companion object{
-        fun showDialog(context: Context, listener: ChallengeFragment): AlertDialog {
+        fun showDialog(context: Context, listener: ChallengeFragment, bundle: Bundle): AlertDialog {
             val inflater = LayoutInflater.from(context)
-            val dialogView = inflater.inflate(R.layout.dialogadditem, null)
+            val dialogView = inflater.inflate(R.layout.dialogo_edit, null)
 
             val builder = AlertDialog.Builder(context)
             builder.setCancelable(false)
@@ -23,10 +24,17 @@ class DialogoAddChallegent {
                     dialog.dismiss()
                 }
                 .setPositiveButton("Guardar") { dialog, _ ->
-                    val editTextInput = dialogView.findViewById<EditText>(R.id.dialog_edit_text)
+                    val editTextInput = dialogView.findViewById<EditText>(R.id.dialog_edit_input)
                     val inputText = editTextInput.text.toString()
-                    listener.onInputReceived(inputText)
-                    dialog.dismiss()
+                    var challenge = bundle?.getSerializable("clave") as? Challenge
+                    challenge.let {
+                        if (it != null) {
+                            it.description=inputText
+                            listener.onInputEdit(it)
+                            dialog.dismiss()
+                        }
+                    }
+
                 }
             var dialog = builder.create()
             dialog.setOnShowListener {

@@ -45,11 +45,12 @@
 
                 <ImageView
                     android:id="@+id/icon_edit"
-                    android:layout_width="24dp"
+                    android:layout_width="18dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/icons8_editar"
+                    android:layout_marginStart="16dp"
                     android:contentDescription="edit"
-                    android:layout_marginStart="16dp" />
+                    android:src="@drawable/icons8_editar"
+                    android:onClick="onEditClick" />
 
                 <Space
                     android:layout_width="0dp"

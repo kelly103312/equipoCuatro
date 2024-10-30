@@ -16,6 +16,20 @@ class ChallengeRepository(val context: Context) {
         }
     }
 
+    suspend fun updateChallenge(challenge:Challenge){
+        withContext(Dispatchers.IO){
+            challengeDao.updateChallenge(challenge)
+        }
+    }
+
+    suspend fun deleteChallenge(challenge:Challenge){
+        withContext(Dispatchers.IO){
+            challengeDao.deleteChallenge(challenge)
+        }
+    }
+
+
+
     suspend fun getListChallenge():MutableList<Challenge>{
         return withContext(Dispatchers.IO){
             challengeDao.getListChallenge()

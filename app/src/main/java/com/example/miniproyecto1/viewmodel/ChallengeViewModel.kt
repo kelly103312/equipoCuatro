@@ -33,6 +33,33 @@ class ChallengeViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
+    fun updateChallenge(challenge: Challenge) {
+        viewModelScope.launch {
+
+            _progresState.value = true
+            try {
+                challengeRepository.updateChallenge(challenge)
+                _progresState.value = false
+            } catch (e: Exception) {
+                _progresState.value = false
+            }
+        }
+    }
+
+    fun deleteChallenge(challenge: Challenge) {
+        viewModelScope.launch {
+
+            _progresState.value = true
+            try {
+                challengeRepository.deleteChallenge(challenge)
+                _progresState.value = false
+            } catch (e: Exception) {
+                _progresState.value = false
+            }
+        }
+    }
+
+
     fun getListChallenge() {
         viewModelScope.launch {
             _progresState.value = true

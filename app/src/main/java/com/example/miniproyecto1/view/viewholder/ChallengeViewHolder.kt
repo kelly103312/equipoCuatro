@@ -9,20 +9,31 @@ import com.example.miniproyecto1.databinding.ItemchallengesBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.example.miniproyecto1.R
 import com.example.miniproyecto1.model.Challenge
+import com.example.miniproyecto1.view.dialog.DialogoDelete
+import com.example.miniproyecto1.view.dialog.DialogoEdit
+import com.example.miniproyecto1.view.fragment.ChallengeFragment
 
-class ChallengeViewHolder(binding: ItemchallengesBinding, navController: NavController):
+class ChallengeViewHolder(binding: ItemchallengesBinding, private val fragment: ChallengeFragment):
     RecyclerView.ViewHolder(binding.root) {
     val bindingItem = binding
-    val navController = navController
     fun setItemChallenge(challenge: Challenge) {
         bindingItem.textDescription.text = challenge.description
 
-        bindingItem.cvChallenge.setOnClickListener {
+        bindingItem.iconEdit.setOnClickListener {
             val bundle = Bundle()
             bundle.putSerializable("clave", challenge)
-            navController.navigate(R.id.action_homeFragment_to_challengeFragment, bundle)
+            DialogoEdit.showDialog(context = fragment.requireContext(),fragment, bundle).show()
+            //navController.navigate(R.id.action_homeFragment_to_challengeFragment, bundle)
         }
 
+        bindingItem.iconDelete.setOnClickListener{
+
+            //Toast.makeText(bindingItem.root.context, "Editar", Toast.LENGTH_SHORT).show()
+            val bundle = Bundle()
+            bundle.putSerializable("clave", challenge)
+            DialogoDelete.showDialog(context = fragment.requireContext(),fragment, bundle).show()
+
+        }
     }
 
     fun editItemChallenge(challenge: Challenge) {

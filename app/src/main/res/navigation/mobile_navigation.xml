@@ -10,7 +10,7 @@
         android:label="InstructionFragment" />
     <fragment
         android:id="@+id/challengeFragment"
-        android:name="com.example.miniproyecto1.view.fragment.challengeFragment"
+        android:name="com.example.miniproyecto1.view.fragment.ChallengeFragment"
         android:label="challengeFragment" />
     <fragment
         android:id="@+id/homeFragment"

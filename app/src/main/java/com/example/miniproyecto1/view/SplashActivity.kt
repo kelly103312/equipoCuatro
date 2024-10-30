@@ -29,7 +29,7 @@ class SplashActivity : AppCompatActivity() {
             delay(3000) // Cambia el tiempo a 3000 ms (3 segundos) o lo que consideres necesario
 
             // Navegar al MainActivity después del splash
-            val intent = Intent(this@SplashActivity, MainActivity::class.java)
+            val intent = Intent(this@SplashActivity, HomeActivity::class.java)
             startActivity(intent)
             finish() // Cierra la actividad para que no se pueda volver al splash con el botón atrás
         }

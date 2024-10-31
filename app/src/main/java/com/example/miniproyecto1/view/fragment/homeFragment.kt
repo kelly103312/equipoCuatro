@@ -50,6 +50,8 @@ class HomeFragment : Fragment() {
 
 
 
+
+
         // Iniciar la cuenta regresiva y animación al presionar el botón de giro
         binding.spinButton.setOnClickListener {
             if (!mediaPlayer.isPlaying && isAudioOn) {
@@ -58,6 +60,8 @@ class HomeFragment : Fragment() {
             reiniciarCuentaRegresiva()
         }
     }
+
+
 
     private fun navigationChallengeFragment(){
         binding.iconChallenges.setOnClickListener {
@@ -170,6 +174,7 @@ class HomeFragment : Fragment() {
             override fun onAnimationEnd(animation: Animation?) {
                 // Al finalizar la animación, el texto se establece en 3
                 binding.countdownText.text = "3"
+                findNavController().navigate(R.id.action_homeFragment_to_dialogFragment2)
             }
 
             override fun onAnimationRepeat(animation: Animation?) {

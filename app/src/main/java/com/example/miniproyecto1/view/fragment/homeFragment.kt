@@ -1,5 +1,6 @@
 package com.example.miniproyecto1.view.fragment
 
+import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -44,6 +45,8 @@ class HomeFragment : Fragment() {
         navigationFragmentB()
         navigationInstruccionFragment()
         navigationChallengeFragment()
+        shareFunction()
+
 
 
 
@@ -103,6 +106,21 @@ class HomeFragment : Fragment() {
         if (mediaPlayer.isPlaying) {
             mediaPlayer.pause()
             mediaPlayer.seekTo(0)
+        }
+    }
+
+    private fun shareFunction() {
+        binding.iconShare.setOnClickListener {
+            val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(Intent.EXTRA_SUBJECT, "App pico botella")
+                putExtra(
+                    Intent.EXTRA_TEXT,
+                    "App pico botella - Solo los valientes lo juegan !!\nDescarga la app aquí: https://play.google.com/store/apps/details?id=com.nequi.MobileApp&hl=es_419&gl=es"
+                )
+            }
+
+            startActivity(Intent.createChooser(shareIntent, "Compartir App Pico Botella"))
         }
     }
 

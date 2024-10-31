@@ -2,45 +2,51 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="300dp"
-    android:layout_gravity="center"
-    android:background="@drawable/dialog_backgrund"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_madera"
     tools:context=".view.fragment.DialogFragment">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:layout_gravity="center">
+    <FrameLayout
+        android:layout_width="250dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:background="@drawable/dialog_backgrund"
+        android:padding="16dp">
 
-        <ImageView
-            android:id="@+id/pokemonImage"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:background="@drawable/circle_background"/>
-
-        <TextView
-            android:id="@+id/challengeText"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reto aleatorio"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:gravity="center"
-            android:layout_marginTop="16dp" />
+            android:orientation="vertical"
+            android:layout_gravity="center">
 
-        <Button
-            android:id="@+id/closeButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cerrar"
-            android:backgroundTint="@color/orange"
-            android:textColor="@android:color/white"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp" />
+            <ImageView
+                android:id="@+id/pokemonImage"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:background="@drawable/circle_background"/>
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/challengeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reto aleatorio"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:layout_marginTop="16dp" />
+
+            <Button
+                android:id="@+id/closeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cerrar"
+                android:backgroundTint="@color/orange"
+                android:textColor="@android:color/white"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp" />
+        </LinearLayout>
+
+    </FrameLayout>
 
 </FrameLayout>

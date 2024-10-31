@@ -10,23 +10,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.miniproyecto1.R
-import com.example.miniproyecto1.databinding.FragmentChallengeBinding
 import com.example.miniproyecto1.databinding.FragmentHomeBinding
 import kotlin.random.Random
 
-/**
- * A simple [Fragment] subclass.
- * Use the [homeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private var isAudioOn = true
     private lateinit var mediaPlayer: MediaPlayer
-    private var countdownTimer: CountDownTimer? = null // Variable para el temporizador
+    private var countdownTimer: CountDownTimer? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +31,7 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = this
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -47,11 +43,6 @@ class HomeFragment : Fragment() {
         navigationChallengeFragment()
         shareFunction()
 
-
-
-
-
-
         // Iniciar la cuenta regresiva y animación al presionar el botón de giro
         binding.spinButton.setOnClickListener {
             if (!mediaPlayer.isPlaying && isAudioOn) {
@@ -61,28 +52,51 @@ class HomeFragment : Fragment() {
         }
     }
 
+    // Función de animación
+    private fun animarIcono(view: View) {
+        view.animate()
+            .scaleX(1.2f)
+            .scaleY(1.2f)
+            .alpha(0.8f)
+            .setDuration(300)
+            .withEndAction {
+                view.animate()
+                    .scaleX(1f)
+                    .scaleY(1f)
+                    .alpha(1f)
+                    .setDuration(300)
+                    .start()
+            }.start()
+    }
 
-
-    private fun navigationChallengeFragment(){
+    private fun navigationChallengeFragment() {
         binding.iconChallenges.setOnClickListener {
+            animarIcono(binding.iconChallenges)
+            Toast.makeText(requireContext(), "Navegando a desafíos", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_homeFragment_to_challengeFragment)
         }
     }
 
-    private fun navigationInstruccionFragment(){
+    private fun navigationInstruccionFragment() {
         binding.iconInstructions.setOnClickListener {
+            animarIcono(binding.iconInstructions)
+            Toast.makeText(requireContext(), "Navegando a instrucciones", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_homeFragment_to_instructionFragment)
         }
     }
 
     private fun navigationFragmentB() {
         binding.StarFragmentB.setOnClickListener {
+            animarIcono(binding.StarFragmentB)
+            Toast.makeText(requireContext(), "Navegando a valoración", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_homeFragment_to_fragmentB)
         }
     }
 
     private fun setupAudioToggle() {
         binding.iconAudio.setOnClickListener {
+            animarIcono(binding.iconAudio)
+            Toast.makeText(requireContext(), "Activa/Desactiva el audio", Toast.LENGTH_SHORT).show()
             toggleAudio()
         }
     }
@@ -115,27 +129,24 @@ class HomeFragment : Fragment() {
 
     private fun shareFunction() {
         binding.iconShare.setOnClickListener {
+            animarIcono(binding.iconShare)
+            Toast.makeText(requireContext(), "Compartir aplicación", Toast.LENGTH_SHORT).show()
             val shareIntent = Intent(Intent.ACTION_SEND).apply {
                 type = "text/plain"
-                putExtra(Intent.EXTRA_SUBJECT, "App pico botella")
+                putExtra(Intent.EXTRA_SUBJECT, "App Pico Botella")
                 putExtra(
                     Intent.EXTRA_TEXT,
-                    "App pico botella - Solo los valientes lo juegan !!\nDescarga la app aquí: https://play.google.com/store/apps/details?id=com.nequi.MobileApp&hl=es_419&gl=es"
+                    "App Pico Botella - ¡Solo los valientes lo juegan!\nDescarga la app aquí: https://play.google.com/store/apps/details?id=com.nequi.MobileApp&hl=es_419&gl=es"
                 )
             }
-
             startActivity(Intent.createChooser(shareIntent, "Compartir App Pico Botella"))
         }
     }
 
     private fun reiniciarCuentaRegresiva() {
-        // Reiniciar el texto del temporizador a 3
         binding.countdownText.text = "3"
-
-        // Cancelar el temporizador anterior si está en ejecución
         countdownTimer?.cancel()
 
-        // Crear un nuevo temporizador que comienza desde 3
         countdownTimer = object : CountDownTimer(3000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 val segundosRestantes = (millisUntilFinished / 1000).toInt()
@@ -143,49 +154,41 @@ class HomeFragment : Fragment() {
             }
 
             override fun onFinish() {
-                binding.countdownText.text = "0" // Cambiar a 0 al finalizar
-                girarBotella() // Llamar a girarBotella
+                binding.countdownText.text = "0"
+                girarBotella()
             }
-        }.start() // Iniciar el temporizador
+        }.start()
     }
 
     private fun girarBotella() {
-        // Generar un ángulo aleatorio para la animación de giro
         val anguloAleatorio = Random.nextInt(1800, 3600).toFloat()
 
-        // Crear la animación de rotación
         val rotateAnimation = RotateAnimation(
             0f, anguloAleatorio,
             Animation.RELATIVE_TO_SELF, 0.5f,
             Animation.RELATIVE_TO_SELF, 0.5f
         ).apply {
-            duration = 3000 // Duración de la animación
-            fillAfter = true // Mantener el estado final de la animación
+            duration = 3000
+            fillAfter = true
         }
 
-        binding.bottleImage.startAnimation(rotateAnimation) // Iniciar la animación
+        binding.bottleImage.startAnimation(rotateAnimation)
 
-        // Establecer un listener para detectar el final de la animación
         rotateAnimation.setAnimationListener(object : Animation.AnimationListener {
-            override fun onAnimationStart(animation: Animation?) {
-                // No se usa en este caso
-            }
+            override fun onAnimationStart(animation: Animation?) {}
 
             override fun onAnimationEnd(animation: Animation?) {
-                // Al finalizar la animación, el texto se establece en 3
                 binding.countdownText.text = "3"
                 findNavController().navigate(R.id.action_homeFragment_to_dialogFragment2)
             }
 
-            override fun onAnimationRepeat(animation: Animation?) {
-                // No se usa en este caso
-            }
+            override fun onAnimationRepeat(animation: Animation?) {}
         })
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        mediaPlayer.release() // Liberar el reproductor de música al destruir el fragmento
-        countdownTimer?.cancel() // Cancelar el temporizador
+        mediaPlayer.release()
+        countdownTimer?.cancel()
     }
 }
